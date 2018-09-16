@@ -1,23 +1,48 @@
 var CommentBox = createReactClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(result) {
+        this.setState({data: result.data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+    console.log(this.state.data);
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
   render: function() {
     return (
       <div>
-        <CommentList />
+        <CommentList data={this.state.data} />
         <CommentForm />
       </div>
-    )
+    );
   }
 });
 
 var CommentList = createReactClass({
-  render: function(){
+  render: function() {
+    var commentNodes = this.props.data.map(function (comment) {
+      return (
+        <Comment data={comment.title}>
+          {comment.description}
+        </Comment>
+      );
+    });
     return (
       <div className="commentList">
-        <Comment author="Pete Hunt">This is one comment</Comment>
-        {/* author="hogehoge" でpropsの値受け渡し */}
-        <Comment author="Jordan Walke">This is *another* comment</Comment>
+        {commentNodes}
       </div>
-    )
+    );
   }
 });
 
@@ -36,7 +61,7 @@ var Comment = createReactClass({
     return (
       <div className="comment">
         <h2 className="commentAuthor">
-          {this.props.author}
+          {this.props.data}
         </h2>
         {this.props.children}
       </div>
