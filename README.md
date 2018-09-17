@@ -12,6 +12,7 @@ reference: https://qiita.com/joe-re/items/96f12dda4a62470d1d7c
 ### String Refが使えなくなった
 - 行き当たりばったりで解決
 ```before.js
+  // BEFORE
   handleSubmit(e){
     e.preventDefault();
     var title = ReactDOM.findDOMNode(this.refs.title).value;
@@ -29,6 +30,7 @@ reference: https://qiita.com/joe-re/items/96f12dda4a62470d1d7c
 ```
 
 ```after.js
+  // AFTER
   handleSubmit(e){
     e.preventDefault();
     var title = this.title.value.trim();
@@ -47,6 +49,7 @@ reference: https://qiita.com/joe-re/items/96f12dda4a62470d1d7c
 
 ### `: function` の記述がいらなくなった
 ```before.js
+  // BEFORE
   render: function() { // <=ここ
     return (
       <div className="commentBox">
@@ -57,6 +60,7 @@ reference: https://qiita.com/joe-re/items/96f12dda4a62470d1d7c
 ```
 
 ```after.js
+  // AFTER
   render() { // <=ここ
     return (
       <div className="commentBox">
