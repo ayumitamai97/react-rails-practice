@@ -36,9 +36,9 @@ var CommentBox = createReactClass({
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={this.state.data} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-        {/* ここでcallback渡す！ */}
+        {/* ↑ここでcallback渡す！ */}
+        <CommentList data={this.state.data} />
       </div>
     );
   }
@@ -65,7 +65,7 @@ var CommentForm = createReactClass({
   handleSubmit(e){
     e.preventDefault();
     var title = this.title.value.trim();
-    var description = this.title.value.trim();
+    var description = this.description.value.trim();
     if (!title || !description) {
       return;
     }

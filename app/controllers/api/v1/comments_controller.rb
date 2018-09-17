@@ -1,6 +1,6 @@
 class Api::V1::CommentsController < ApplicationController
   def index
-    @data = Comment.all
+    @data = Comment.all.order("id desc")
   end
 
   def create
